@@ -1,21 +1,21 @@
-const ContactModel = require("../../schemas/contacts")
+const ContactModel = require("../../schemas/contacts");
 require("dotenv").config();
 
- const addContact = async (req, res, next) => {
+const addContact = async (req, res, next) => {
   try {
     const { name, email, phone, favorite } = req.body;
     if (!name || !email || !phone) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    const userId = req.user.id; // Obtener el ID del usuario autenticado
+    const userId = req.user.id;
 
     const newContact = new ContactModel({
       name,
       email,
       phone,
       favorite: favorite || false,
-      owner: userId, // Asignar el ID del usuario como propietario del contacto
+      owner: userId,
     });
 
     const savedContact = await newContact.save();

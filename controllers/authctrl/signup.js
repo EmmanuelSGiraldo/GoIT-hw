@@ -2,7 +2,7 @@ const User = require("../../schemas/user");
 require("dotenv").config();
 
 const signupctrl = async (req, res, next) => {
-  const { username, email, password, subscription } = req.body; // Agrega 'subscription' a los datos recibidos
+  const { username, email, password, subscription } = req.body; 
   
   try {
     const user = await User.findOne({ email });
@@ -16,7 +16,7 @@ const signupctrl = async (req, res, next) => {
       });
     }
 
-    const newUser = new User({ username, email, subscription }); // Incluye 'subscription' en la creación del usuario
+    const newUser = new User({ username, email, subscription }); 
     newUser.setPassword(password);
     await newUser.save();
 

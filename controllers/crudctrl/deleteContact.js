@@ -1,7 +1,7 @@
-const ContactModel = require("../../schemas/contacts")
+const ContactModel = require("../../schemas/contacts");
 require("dotenv").config();
 
-const deleteContact =   async (req, res, next) => {
+const deleteContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const deletedContact = await ContactModel.findByIdAndDelete(contactId);
@@ -16,7 +16,6 @@ const deleteContact =   async (req, res, next) => {
     }
     next(error);
   }
-};  
-
+};
 
 module.exports = deleteContact;

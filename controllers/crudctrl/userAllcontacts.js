@@ -2,9 +2,7 @@ const ContactModel = require("../../schemas/contacts");
 
 const userAllContacts = async (req, res, next) => {
   try {
-    const userId = req.user.id; // Obtener el ID del usuario autenticado
-
-    // Obtener todos los contactos del usuario autenticado
+    const userId = req.user.id;
     const userContacts = await ContactModel.find({ owner: userId });
 
     res.status(200).json(userContacts);

@@ -1,8 +1,7 @@
-const ContactModel = require("../../schemas/contacts")
+const ContactModel = require("../../schemas/contacts");
 require("dotenv").config();
 
-
-const updateForId =  async (req, res, next) => {
+const updateForId = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const updatedContact = await ContactModel.findByIdAndUpdate(

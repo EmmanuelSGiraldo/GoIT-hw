@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-require("./config/config-passport")
+require("./config/config-passport");
 
 app.use("/api", routerApi);
 

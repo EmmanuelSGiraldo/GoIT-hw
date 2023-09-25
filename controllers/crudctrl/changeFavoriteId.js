@@ -1,8 +1,7 @@
-const ContactModel = require("../../schemas/contacts")
+const ContactModel = require("../../schemas/contacts");
 require("dotenv").config();
 
-
-    const changeFavoriteId = async (req, res, next) => {
+const changeFavoriteId = async (req, res, next) => {
   try {
     const { contactId } = req.params;
     const { favorite } = req.body;

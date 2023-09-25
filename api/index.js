@@ -10,6 +10,8 @@ const updateForId = require("../controllers/crudctrl/updateForId");
 const addContact = require("../controllers/crudctrl/addContact");
 const changeFavoriteId = require("../controllers/crudctrl/changeFavoriteId");
 const deleteContact = require("../controllers/crudctrl/deleteContact");
+const userAllContacts = require("../controllers/crudctrl/userAllcontacts");
+
 
 const invalidatedTokens = new Set();
 
@@ -27,18 +29,16 @@ const validToken = (req, res, next) => {
   }
   next();
 };
+// RUTAS DEL AUTH
 
 // Ruta para registro de usuarios
-router.post("/signup", signupctrl);
+router.post("/users/signup",  signupctrl);
 
 // Ruta para inicio de sesión
-router.post("/login", loginctrl);
-
-// Ruta para obtener información del usuario autenticado
-router.get("/me", validToken, auth, meCtrl);
+router.post("/users/login", loginctrl);
 
 // Ruta para cerrar sesión y agregar el token a invalidatedTokens
-router.post("/logout", validToken, auth, (req, res, next) => {
+router.post("/users/logout", validToken, auth, (req, res, next) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(" ")[1];
 
@@ -51,6 +51,12 @@ router.post("/logout", validToken, auth, (req, res, next) => {
     data: "Success",
   });
 });
+
+// Ruta para obtener información del usuario autenticado
+router.get("/users/current", validToken, auth, meCtrl);
+
+
+
 
 // RUTAS DEL CRUD
 
@@ -70,14 +76,13 @@ router.post("/contacts", validToken, auth, addContact);
 // router.delete("/contacts/:contactId", validToken, auth, deleteContact);
 
 // Ruta para actualizar el estado favorito de un contacto por su ID
-router.patch(
-  "/contacts/:contactId/favorite",
-  validToken,
-  auth,
-  changeFavoriteId
-);
+router.patch( "/contacts/:contactId/favorite",  validToken,  auth,  changeFavoriteId);
 
 // Ruta para Eliminar contacto por idgit status
 router.delete("/contacts/:contactId", validToken, auth, deleteContact);
+
+// Ruta para obtener todos los contactos del usuario autenticado
+router.get("/contacts/user/:userId", validToken, auth, userAllContacts);
+
 
 module.exports = router;

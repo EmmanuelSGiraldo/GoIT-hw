@@ -10,6 +10,7 @@ const deleteContact = require("../../controllers/contactsctrl/deleteContact");
 const userAllContacts = require("../../controllers/contactsctrl/userAllcontacts");
 
 
+
 // Ruta para obtener todos los contactos de usuario
 router.get("/contacts", validToken, auth, userAllContacts);
 

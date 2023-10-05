@@ -4,25 +4,26 @@ const fs = require("fs/promises");
 const jimp = require("jimp");
 
 const avatarsDir = path.join(__dirname, "../../", "public", "avatars");
-const serverBaseUrl = "http://localhost:3000"; // Cambia esto por la URL base de tu servidor
+const serverBaseUrl = "http://localhost:3000";
 
 const updateAvatar = async (req, res) => {
   try {
     const { path: tempUpload, originalname } = req.file;
     const { _id: id } = req.user;
     const imageName = `${id}_${originalname}`;
-    
+
     const resultUpload = path.join(avatarsDir, imageName);
 
     // Procesar y redimensionar el avatar utilizando jimp
     const avatar = await jimp.read(tempUpload);
     avatar.resize(250, 250).write(resultUpload);
 
-    const avatarURL = path.join( "avatars", imageName);
+    const avatarURL = path.join("avatars", imageName);
     await User.findByIdAndUpdate(req.user._id, { avatarURL });
 
     // Verificar si el archivo temporal existe antes de eliminarlo
-    const tempUploadExists = await fs.access(tempUpload, fs.constants.F_OK)
+    const tempUploadExists = await fs
+      .access(tempUpload, fs.constants.F_OK)
       .then(() => true)
       .catch(() => false);
 

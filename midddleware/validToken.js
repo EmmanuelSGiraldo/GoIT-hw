@@ -1,5 +1,3 @@
-
-
 const invalidatedTokens = new Set();
 
 const validToken = (req, res, next) => {
